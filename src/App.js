@@ -9,19 +9,28 @@ import Signup from './components/SignUp'
 import Logout from './components/Logout'
 import { initialState ,reducer} from './components/reducer/UserReducer';
 import Quiz from './components/Quiz'
+import { AdminHome } from './components/AdminHome'
 
 export const UserContext=createContext();
   const Routing=()=>{
+    const isLoggedIn = window.localStorage.getItem("loggedIn");
     return (
       
-      <Routes>  
-      <Route exact path="/" element={<Home />} />
+      <Routes> 
+        <Route
+            exact
+            path="/"
+            element={<Home/>}
+          /> 
+     
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/login" element={<Login />} />
       <Route path="/logout" element={<Logout />} />
       <Route path="/quiz" element={<Quiz />} />
+      <Route path="/admin/" element={<AdminHome />} />
+     
       </Routes>
 
     )
@@ -34,7 +43,7 @@ const App= ()=> {
     <>
      <UserContext.Provider value={{state,dispatch}}>
  
-     <Navbar/>
+     
       <Routing/>
      
 

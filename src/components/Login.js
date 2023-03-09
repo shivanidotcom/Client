@@ -1,14 +1,16 @@
 import React,{useContext, useState} from "react";
 import { Link, useNavigate } from 'react-router-dom';
+import Navbar from "./Navbar";
 //import './signup.css';
 import './login.css';
 import { UserContext } from "../App";
 const Login=()=>{
-    const {state, dispatch}=useContext(UserContext);
+    const { dispatch}=useContext(UserContext);
     const history=useNavigate();
     const [email,setEmail]=useState('');
     const [password, setPassword]=useState('');
     const loginUser=async (e)=>{
+      
         e.preventDefault();
         const res = await fetch('/signin',{
             method:"POST",
@@ -23,14 +25,21 @@ const Login=()=>{
         if(res.status===400 || !data){
             window.alert("Invalid Credentials")
         }else{
-            dispatch({type:"USER",payload:true})
-            window.alert("Login successfull");
+          if(email==="admin@gmail.com"){
+            dispatch({type:"USER",payload:true})       
+            window.alert("Admin Login successfull");
+            history("/admin/");
+          }else{
+            dispatch({type:"USER",payload:true})       
+            window.alert("User Login successfull");
             history("/");
+          }
+            
         }
     }
     return(
         <>
-        
+        <Navbar/>
     <div class="wrapper">
       <div class="title">Login Form</div>
       <form action="#">
@@ -50,7 +59,7 @@ const Login=()=>{
             <input type="checkbox" id="remember-me"/>
             <label for="remember-me">Remember me</label>
           </div>
-          <div class="pass-link"><a href="#">Forgot password?</a></div>
+          <div class="pass-link"><a href="/login">Forgot password?</a></div>
         </div>
         <div class="field">
           <input type="submit" onClick={loginUser} value="Login"/>

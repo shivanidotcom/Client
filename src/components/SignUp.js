@@ -1,49 +1,89 @@
 import React , {useState} from 'react';
 import { Link ,useNavigate} from 'react-router-dom';
 import "./signup.css";
+import Navbar from './Navbar';
 const Signup=()=>{
     const history=useNavigate();
+    const[userType,setUserType]=useState("");
+    const[secretKey,setSecretKey]=useState("");
     const[user, setUser]=useState({
         name:"", email:"",phone:"",work:"",password:"",cpassword:""
     });
     let name,value;
     const handleInputs=(e)=>{
-        console.log(e);
-        name = e.target.name;  
-        value=e.target.value;
-        setUser({...user,[name]:value});
+        
+            console.log(e);
+            name = e.target.name;  
+            value=e.target.value;
+            setUser({...user,[name]:value});
+       
+        
     }
 
     const PostData=async (e)=>{
-        e.preventDefault();
-        const {name,email,phone,work,password,cpassword}= user;
-
-       const res= await  fetch("/register",{
-            method:"POST",
-            headers:{
-                "Content-Type":"application/json"
-            },
-            body:JSON.stringify({
-                name,email,work,phone,password,cpassword
-            })
-       });
-       const data=await res.json();
-       if(res.status===422 || !data){
-        window.alert("Invalid registration");
-        console.log("Invalid registration");
-       }else{
-         window.alert("Registration");
-         console.log("Successfull registration");
-         history("/login");
-       }
+        if(userType=="Admin" && secretKey!="AdminVirtusa"){
+            e.preventDefault();
+            alert("Invalid Admin Details")
+        }else{
+            e.preventDefault();
+            const {name,email,phone,work,password,cpassword,userType}= user;
+    
+           const res= await  fetch("/register",{
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({
+                    name,email,work,phone,password,cpassword,userType
+                })
+           });
+           const data=await res.json();
+           if(res.status===422 || !data){
+            window.alert("Invalid registration");
+            console.log("Invalid registration");
+           }else{
+             window.alert("Registration Successfull");
+             console.log("Successfull registration");
+             history("/login");
+           } 
+        }
+        
     }
      
     return(
         <>
+        <Navbar/>
         <form method="POST">
         <div className='wrapper'>
             <h1>Register</h1>
             <p>Please fill in this form to create an account.</p>
+            
+            <div>
+                Register as: 
+                <input 
+                    type="radio"
+                    name='UserType'
+                    value="User"
+                    onChange={(e)=>setUserType(e.target.value)}
+                />
+                User 
+
+                <input
+                    type="radio"
+                    name='UserType'
+                    value="Admin"
+                    onChange={(e)=>setUserType(e.target.value)}
+
+                />
+                Admin
+            </div>
+            
+            {userType=="Admin" ? <div class="input-box">
+                <input type="text" name='skey' placeholder="Enter your Secret Key" required
+                value={user.skey}
+                onChange={(e)=>setSecretKey(e.target.value)}/>
+            </div>:null}
+            
             <div class="input-box">
                 <input type="text" name='name' placeholder="Enter your name" required
                 value={user.name}
