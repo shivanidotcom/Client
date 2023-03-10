@@ -6,7 +6,10 @@ body {
   font-family: 'Poppins', sans-serif;
   background-color: white;
 }
-
+#iamgess{
+  height: 180px;
+  width: 300px;
+}
 .container {
   max-width: 1100px;
   margin: 0 auto;
@@ -20,7 +23,7 @@ body {
 
 .navbar {
   height: 60px;
-  background-color: #2d6be8;
+  
   position: relative;
 }
 

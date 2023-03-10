@@ -270,7 +270,10 @@ progress {
 /*
 Correct the cursor style of increment and decrement buttons in Safari.
 */
-
+#iamgess{
+  height: 180px;
+  width: 300px;
+}
 ::-webkit-inner-spin-button,
 ::-webkit-outer-spin-button {
   height: auto;

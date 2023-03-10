@@ -9,7 +9,13 @@ import Signup from './components/SignUp'
 import Logout from './components/Logout'
 import { initialState ,reducer} from './components/reducer/UserReducer';
 import Quiz from './components/Quiz'
-import { AdminHome } from './components/AdminHome'
+import { AdminHome } from './components/Admin/AdminHome'
+import Profiles from './components/Admin/Profiles'
+import axios from 'axios'
+import { Articles } from './components/Admin/Articles'
+import { PostCard } from './components/Post/PostCard'
+import { Post } from './components/Post/Post'
+import { LinkedProfiles } from './components/LinkedProfiles/LinkedProfiles'
 
 export const UserContext=createContext();
   const Routing=()=>{
@@ -30,6 +36,11 @@ export const UserContext=createContext();
       <Route path="/logout" element={<Logout />} />
       <Route path="/quiz" element={<Quiz />} />
       <Route path="/admin/" element={<AdminHome />} />
+      <Route path="/profiles" element={<Profiles/>} />
+      <Route path="/articles" element={<Articles/>} />
+      <Route path="/posts" element={<Post/>} />
+      <Route path="/linkedposts" element={<LinkedProfiles/>} />
+      
      
       </Routes>
 

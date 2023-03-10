@@ -6,51 +6,58 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { UserContext } from '../App';
 
 const Navbar = () => {
+  const [showMediaIcons, setShowMediaIcons] = useState(false);
   
   const {state,dispatch}=useContext(UserContext);
   const RenderMenu =()=>{
     if(state){
       return (
         <>
-        <div className="container">
-      <div className="menu-icon" onClick={handleShowNavbar}>
-      <Hamburger />
-        </div>
-        <div className={`nav-elements  ${showNavbar && 'active'}`}>
-          <ul>
-          <li><NavLink to="/">Home</NavLink></li>
-          <li><NavLink to="/about">About</NavLink></li>
-          <li><NavLink to="/contact">Contact</NavLink></li>
-          <li><NavLink to="/quiz">Quiz</NavLink></li>
-          <li><NavLink  to="/logout">Logout</NavLink></li>
-          </ul>
-        </div>
-      </div>
-           
-       
-
-
+        <li>
+              <NavLink to="/">Home</NavLink>
+            </li>
+            <li>
+              <NavLink to="/articles">Profiles</NavLink>
+            </li>
+            <li>
+              <NavLink to="/posts">Articles</NavLink>
+            </li>
+            
+            <li>
+              <NavLink to="/resources">Resources</NavLink>
+            </li>
+            <li>
+              <NavLink to="/forum">Forum</NavLink>
+            </li>
+            <li>
+              <NavLink to="/events">Events</NavLink>
+            </li>
+            <li>
+              <NavLink to="/logout">Logout</NavLink>
+            </li>
         </>
       )
     }else{
       return(
         <>
-        <div className="container">
-      <div className="menu-icon" onClick={handleShowNavbar}>
-         <Hamburger/>
-        </div>
-        <div className={`nav-elements  ${showNavbar && 'active'}`}>
-          <ul>
-          <li><NavLink  to="/">Home</NavLink></li>
-           <li><NavLink to="/about">About</NavLink></li>
-            <li><NavLink to="/contact">Contact</NavLink></li>
-            <li><NavLink  to="/login">Login</NavLink></li>
-            <li><NavLink  to="/signup">Register</NavLink></li>
-
-          </ul>
-        </div>
-      </div>
-           
+            <li>
+              <NavLink to="/">Home</NavLink>
+            </li>
+            <li>
+              <NavLink to="/about">
+                 About
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/articles">Profiles</NavLink>
+            </li>
+            
+            <li>
+              <NavLink to="/login">Login</NavLink>
+            </li>
+            <li>
+              <NavLink to="/signup">Register</NavLink>
+            </li>
 
         </>
       )
@@ -65,10 +72,31 @@ const Navbar = () => {
   return (
     
     <>
+    <nav className="main-nav">
+        {/* 1st logo part  */}
+        <div className="logo">
+          <h2>
+            <span>T</span>ech
+            <span>S</span>he
+            <span>R</span>o
+          </h2>
+        </div>
+
+        {/* 2nd menu part  */}
+        <div
+          className={
+            showMediaIcons ? "menu-link mobile-menu-link" : "menu-link"
+          }>
+          <ul>
+            <RenderMenu/>
+          </ul>
+        </div>
+
+        
+        
+      </nav>
     
-    <nav className="navbar">
-     <RenderMenu/>
-    </nav>
+  
    
     </>
   )
